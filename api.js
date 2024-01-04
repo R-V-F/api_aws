@@ -3,7 +3,7 @@ async function connect(mysql){
       return global.connection;
 
   
-      const connection = await mysql.createConnection("mysql://admin:renan123@database-1.cve8wekscbc9.us-east-2.rds.amazonaws.com:3306/db_sistema");
+      const connection = await mysql.createConnection("mysql://admin:renan123@database-1.cve8wekscbc9.us-east-2.rds.amazonaws.com:3306/db_main");
       console.log("Conectou no MySQL!");
   global.connection = connection;
   return connection;
@@ -54,7 +54,7 @@ async function main() {
   });
   app.get("/custom/:timelimit", cors() ,function (req, res) {
     let timelimit = req.params.timelimit;
-    let custom_query = `SELECT * FROM db_sistema.padrao WHERE TIMESTAMPDIFF(MINUTE, timestamp, NOW()) < ${timelimit} ORDER BY timestamp ASC`;
+    let custom_query = `SELECT * FROM db_main.tb_views WHERE TIMESTAMPDIFF(MINUTE, timestamp, NOW()) < ${timelimit} ORDER BY timestamp ASC`;
     con.query(custom_query, (error, results, fields) => {
       if (error) throw error;
       res.send({msg:results});
