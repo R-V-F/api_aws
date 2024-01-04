@@ -3,7 +3,7 @@ async function connect(mysql){
       return global.connection;
 
   
-      const connection = await mysql.createConnection("mysql://root:renan123@localhost:3306/db_sistema");
+      const connection = await mysql.createConnection("mysql://admin:renan123@database-1.cve8wekscbc9.us-east-2.rds.amazonaws.com:3306/db_sistema");
       console.log("Conectou no MySQL!");
   global.connection = connection;
   return connection;
@@ -19,8 +19,8 @@ async function main() {
   app.use(cors());
 
 
-  let query = 'SELECT * FROM db_sistema.padrao WHERE TIMESTAMPDIFF(MINUTE, timestamp, NOW()) < 11 ORDER BY timestamp DESC';
-  let query2h = "SELECT * FROM db_sistema.padrao WHERE TIMESTAMPDIFF(MINUTE, timestamp, NOW()) < 1440 ORDER BY timestamp ASC";
+  let query = 'SELECT * FROM db_main.tb_views WHERE TIMESTAMPDIFF(MINUTE, timestamp, NOW()) < 11 ORDER BY timestamp DESC';
+  let query2h = "SELECT * FROM db_main.tb_views WHERE TIMESTAMPDIFF(MINUTE, timestamp, NOW()) < 1440 ORDER BY timestamp ASC";
 
   app.get("/current", cors() ,function (req, res) {
     con.query(query, (error, results, fields) => {
